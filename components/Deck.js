@@ -1,10 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function Deck({ title }) {
+export default function Deck({ title, navigation }) {
   return (
     <View style={styles.deck}>
-      <Text>{title}</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(
+          'DeckDetail',
+          { deckId: title }
+        )}
+      >
+        <Text>{title}</Text>
+      </TouchableOpacity>
+      
     </View>
   )
 }

@@ -21,11 +21,11 @@ class DeckList extends React.Component {
 
   render() {
     const { decks } = this.props;
-
     return (
       <View>
         <Text>Deck List</Text>
-        {decks.map(deck => <Deck key={deck.id} title={deck.title}></Deck>)}
+        {decks.map(deck => 
+          <Deck key={deck.id} title={deck.title} navigation={this.props.navigation}></Deck>)}
       </View>
     );
   }
