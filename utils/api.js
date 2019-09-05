@@ -6,17 +6,27 @@ export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY);
 }
 
-export function saveDeck(deck, key) {
+export function saveDeck(deck, id) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [key]: deck
+    [id]: deck
   }));
 }
 
-export function removeDeck(deck, key) {
+export function removeDeck(id) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then(results => {
       const data = JSON.parse(results);
-      delete data[key];
+      delete data[id];
       AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
     })
+}
+
+export function addCard(card, deckId) {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then(results => {
+      const decks = JSON.parse(results);
+      const deck = decks[deckId];
+      deck.questions.concat([card]);
+      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
+    });
 }

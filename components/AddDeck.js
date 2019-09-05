@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'r
 import { purple, white } from '../utils/colors';
 import { saveDeck } from '../utils/api';
 import { connect } from 'react-redux';
+import { addDeck, addCard } from '../actions';
 
 function SubmitBtn({ onPress }) {
   return (
@@ -16,18 +17,17 @@ function SubmitBtn({ onPress }) {
 
 class AddDeck extends React.Component {
   state = {
-    question: '',
-    answer: ''
+    title: '',
+    questions: []
   }
 
   submit = async () => {
-    await saveDeck();   
-    
-    console.log('pressed!');
+    await saveDeck(this.state, this.state.title); // TODO: simplfiy parameters
+    this.props.dispatch(addDeck(this.state));   
   }
 
-  handleChangeQuestionText(text) {
-    console.log('question text: ', text);
+  handleChangeTitle = (text) => {
+    this.setState(() => ({ title: text }));
   }
 
   render() {
@@ -35,12 +35,8 @@ class AddDeck extends React.Component {
       <View style={{ flex: 1 }}>
         <TextInput 
           style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-          placeholder='Your question'
-          onChangeText={this.handleChangeQuestionText} />
-
-        <TextInput 
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-          placeholder='Your answer' />
+          placeholder='Title'
+          onChangeText={this.handleChangeTitle} />
 
         <SubmitBtn onPress={this.submit} />
       </View>

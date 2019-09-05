@@ -16,7 +16,7 @@ function decks(state = {}, action) {
     case ADD_DECK:
       return {
         ...state,
-        ...action.deck
+        [action.deck.title]: action.deck
       };
     case ADD_CARD:
       const deckId = action.deckId;
