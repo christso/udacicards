@@ -4,10 +4,10 @@ export const REMOVE_DECK = 'REMOVE_DECK';
 export const ADD_CARD = 'ADD_CARD';
 export const REMOVE_CARD = 'REMOVE_CARD';
 
-export function receiveEntries(entries) {
+export function receiveDecks(decks) {
   return {
     type: RECEIVE_DECKS,
-    entries
+    decks
   }
 }
 
