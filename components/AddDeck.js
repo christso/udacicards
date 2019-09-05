@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'r
 import { purple, white } from '../utils/colors';
 import { saveDeck } from '../utils/api';
 import { connect } from 'react-redux';
-import { addDeck, addCard } from '../actions';
+import { addDeck } from '../actions';
 
 function SubmitBtn({ onPress }) {
   return (

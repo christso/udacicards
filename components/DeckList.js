@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { RECEIVE_DECKS, receiveDecks } from '../actions';
 import { getDecks } from '../utils/api';
+import Deck from './Deck';
 
 class DeckList extends React.Component {
   state = {
@@ -23,6 +24,7 @@ class DeckList extends React.Component {
 
     return (
       <View>
+        <Text>Deck List</Text>
         {decks.map(deck => <Deck key={deck.id} title={deck.title}></Deck>)}
       </View>
     );
