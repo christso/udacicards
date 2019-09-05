@@ -19,12 +19,23 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
   )
 }
 
+const TabNavigator = createBottomTabNavigator({
+  Decks: {
+    screen: DeckList
+  },
+  AddDeck: {
+    screen: AddDeck
+  }
+});
+
+const AppContainer = createAppContainer(TabNavigator);
+
 export default function App() {
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
         <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-        <DeckList></DeckList>
+        <AppContainer />
       </View>
     </Provider>
   );
