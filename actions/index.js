@@ -18,10 +18,10 @@ export function addDeck(deck) {
   }
 }
 
-export function removeDeck(name) {
+export function removeDeck(id) {
   return {
     type: REMOVE_DECK,
-    name
+    id
   }
 }
 

@@ -18,6 +18,11 @@ function decks(state = {}, action) {
         ...state,
         [action.deck.title]: action.deck
       };
+    case REMOVE_DECK:
+      const ids = Object.keys(state);
+      const newState = Object.assign(state);
+      delete newState[action.id];
+      return newState;
     case ADD_CARD:
       const deckId = action.deckId;
       const deck = state[deckId];
