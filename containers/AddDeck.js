@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { addDeck } from '../actions';
 import SubmitBtn from '../components/SubmitBtn'; 
 import TextInputBox from '../components/TextInputBox';
+import styles from '../styles';
 
 class AddDeck extends React.Component {
   state = {
@@ -25,8 +26,9 @@ class AddDeck extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Text style={styles.screenTitle}>What is the title of your new Deck?</Text>
         <TextInputBox 
-          placeholder='Title'
+          placeholder='Deck Title'
           onChangeText={this.handleChangeTitle} />
 
         <SubmitBtn onPress={this.submit} text='Submit' />

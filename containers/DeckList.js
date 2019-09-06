@@ -21,9 +21,16 @@ class DeckList extends React.Component {
 
   render() {
     const { decks } = this.props;
+    if (!decks || decks.length === 0) {
+      return (
+        <View>
+          <Text>No decks found. Please add a deck.</Text>
+        </View>
+      )
+    }
+
     return (
       <View>
-        <Text>Deck List</Text>
         {decks.map(deck => 
           <Deck key={deck.id} title={deck.title} navigation={this.props.navigation}></Deck>)}
       </View>
