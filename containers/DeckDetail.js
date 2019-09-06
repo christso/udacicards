@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native';
+
 import { connect } from 'react-redux';
 
 class DeckDetail extends React.Component {
@@ -10,12 +11,21 @@ class DeckDetail extends React.Component {
       title: deckId
     };
   }
-  
+
   render() {
+    const { navigation, deckId } = this.props;
+
     return (
       <View>
         <Text>X Cards</Text>
-        <Text>Add Card</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(
+            'AddCard',
+            { deckId }
+          )}
+        >
+          <Text>Add Card</Text>
+        </TouchableOpacity>
         <Text>Start Quiz</Text>
         <Text>Delete Deck</Text>
       </View>
@@ -23,7 +33,7 @@ class DeckDetail extends React.Component {
   }
 }
 
-function mapStateToProps(state, { navigation}) {
+function mapStateToProps(state, { navigation }) {
   const deckId = navigation.state.params;
 
   return {

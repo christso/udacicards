@@ -7,9 +7,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Constants from 'expo-constants';
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import store from './store';
-import DeckList from './components/DeckList';
-import AddDeck from './components/AddDeck';
-import DeckDetail from './components/DeckDetail';
+import DeckList from './containers/DeckList';
+import AddDeck from './containers/AddDeck';
+import DeckDetail from './containers/DeckDetail';
+import AddCard from './containers/AddCard';
 import { white, purple } from './utils/colors';
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
@@ -44,6 +45,15 @@ const MainNavigator = createStackNavigator({
         backgroundColor: purple,
       },
     }),
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    })
   }
 })
 
