@@ -59,9 +59,13 @@ class Quiz extends React.Component {
     }
 
     if (this.state.isFinished) {
+      const correctAnswers = quiz.questions.filter(q => q.result === 'correct').length;
+
       return (
         <View>
           <Text>Quiz results:</Text>
+          <Text>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
+          <Text>{correctAnswers} / {questionTotal}</Text>
         </View>
       )
     }
