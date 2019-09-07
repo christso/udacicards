@@ -31,7 +31,6 @@ Redux Store Structure
 ```
 quiz: {
   deckId,
-  questionNum,
   questions: [{
     question,
     answer,

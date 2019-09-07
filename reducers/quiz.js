@@ -1,13 +1,12 @@
 import { START_QUIZ, SET_QUESTION_RESULT, END_QUIZ } from '../actions/quiz';
 
-const defaultState = { deckId: null, questionNum: 0 };
+const defaultState = { deckId: null };
 
 function quiz(state = defaultState, action) {
   switch (action.type) {
     case START_QUIZ:
       return {
         deckId: action.deckId,
-        questionNum: 0,
         questions: action.questions
       };
     case SET_QUESTION_RESULT:

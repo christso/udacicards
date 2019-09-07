@@ -10,10 +10,9 @@ export function startQuiz(deckId, questions) {
   };
 }
 
-export function setQuestionResult(deckId, questionText, result) {
+export function setQuestionResult(questionText, result) {
   return {
     type: SET_QUESTION_RESULT,
-    deckId,
     questionText,
     result
   };
