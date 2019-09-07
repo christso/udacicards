@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SubmitBtn from '../components/SubmitBtn';
 import { removeDeck } from '../utils/api';
 import { removeDeck as removeDeckAction } from '../actions/decks';
+import { startQuiz } from '../actions/quiz';
 
 class DeckDetail extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -24,7 +25,8 @@ class DeckDetail extends React.Component {
   }
 
   handleStartQuizPressed = async () => {
-    const { navigation, deck } = this.props;
+    const { navigation, deck, dispatch } = this.props;
+    dispatch(startQuiz(deck.id, deck.questions)); // TODO: select a subset of questions
 
     navigation.navigate(
       'Quiz',

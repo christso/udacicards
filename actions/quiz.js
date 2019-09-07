@@ -2,6 +2,7 @@ export const START_QUIZ = 'START_QUIZ';
 
 export function startQuiz(deckId, questions) {
   return {
+    type: START_QUIZ,
     deckId,
     questions
   };
