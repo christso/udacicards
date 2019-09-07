@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native
 import { connect } from 'react-redux';
 import SubmitBtn from '../components/SubmitBtn';
 import { removeDeck } from '../utils/api';
-import { removeDeck as removeDeckAction } from '../actions';
+import { removeDeck as removeDeckAction } from '../actions/decks';
 
 class DeckDetail extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -56,10 +56,11 @@ class DeckDetail extends React.Component {
 }
 
 function mapStateToProps(state, { navigation }) {
+  const { decks } = state;
   const { deckId } = navigation.state.params;
 
   return {
-    deck: { id: deckId, ...state[deckId] }
+    deck: { id: deckId, ...decks[deckId] }
   }
 }
 

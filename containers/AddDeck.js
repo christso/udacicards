@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native
 import { purple, white } from '../utils/colors';
 import { saveDeck } from '../utils/api';
 import { connect } from 'react-redux';
-import { addDeck } from '../actions';
+import { addDeck } from '../actions/decks';
 import SubmitBtn from '../components/SubmitBtn'; 
 import TextInputBox from '../components/TextInputBox';
 import styles from '../styles';

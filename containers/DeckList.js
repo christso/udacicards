@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { RECEIVE_DECKS, receiveDecks } from '../actions';
+import { RECEIVE_DECKS, receiveDecks } from '../actions/decks';
 import { getDecks } from '../utils/api';
 import Deck from './Deck';
 
@@ -43,7 +43,7 @@ class DeckList extends React.Component {
   }
 }
 
-function mapStateToProps(decks) {
+function mapStateToProps({ decks }) {
   const deckArr = [];
   Object.keys(decks).forEach(id => {
     deckArr.push({ id, ...decks[id] });

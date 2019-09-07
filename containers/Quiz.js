@@ -14,9 +14,10 @@ class Quiz extends React.Component {
 
 function mapStateToProps(state, { navigation }) {
   const { deckId } = navigation.state.params;
+  const { decks } = state;
 
   return {
-    deck: { id: deckId, ...state[deckId] }
+    deck: { id: deckId, ...decks[deckId] }
   }
 }
 

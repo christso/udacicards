@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SubmitBtn from '../components/SubmitBtn';
 import TextInputBox from '../components/TextInputBox';
 import { addCard } from '../utils/api';
-import { addCard as addCardAction } from '../actions'
+import { addCard as addCardAction } from '../actions/decks'
 
 class AddCard extends React.Component {
   static navigationOptions = ({ navigation }) => {
