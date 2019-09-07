@@ -15,18 +15,27 @@ class DeckDetail extends React.Component {
   }
 
   handleDeleteDeckPressed = async () => {
-    const { navigation, deckId, dispatch } = this.props;
-    await removeDeck(deckId);
-    dispatch(removeDeckAction(deckId));
+    const { navigation, deck, dispatch } = this.props;
+    await removeDeck(deck.id);
+    dispatch(removeDeckAction(deck.id));
     navigation.navigate(
        'DeckList'
     );
   }
 
+  handleStartQuizPressed = async () => {
+    
+  }
+
   render() {
     const { navigation, deck } = this.props;
+    
+    if (!deck) {
+      return null;
+    }
+    
     const deckId = deck.id;
-    const numOfCards = deck.questions.length;
+    const numOfCards = deck.questions ? deck.questions.length : 0;
 
     return (
       <View>
