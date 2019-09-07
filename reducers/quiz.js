@@ -11,13 +11,15 @@ function quiz(state = defaultState, action) {
       };
     case SET_QUESTION_RESULT:
       const { questionText, result } = action;
-      const question = state.find(q => q.question === questionText);
+      const question = state.questions.find(q => q.question === questionText);
+      const otherQuestions = state.questions.filter(q => q.question !== questionText);
+      const thisQuestion = { ...question, result };
       
       return {
         ...state,
         questions: [
-          ...state.questions.filter(q => q.question !== questionText),
-          ...{ ...question, result }
+          ...otherQuestions,
+          thisQuestion
         ]
       }
     case END_QUIZ:

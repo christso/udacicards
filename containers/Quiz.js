@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import SubmitBtn from '../components/SubmitBtn';
+import { setQuestionResult } from '../actions/quiz';
 
 class Quiz extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -19,9 +20,7 @@ class Quiz extends React.Component {
 
   nextQuestion = () => {
     const { questionTotal } = this.props;
-    console.log('questionNum = ', this.state.questionNum);
-
-
+ 
     this.setState((state) => {
       if (state.questionNum + 1 < questionTotal) {
         return { questionNum: state.questionNum + 1 };
@@ -30,12 +29,13 @@ class Quiz extends React.Component {
     });
   }
 
-  handleCorrectPressed = () => {
+  handleResultPressed = (questionText, result) => {
+    this.props.dispatch(setQuestionResult(questionText, result));
     this.nextQuestion();
   }
 
-  handleIncorrectPressed = () => {
-    this.nextQuestion();
+  chooseQuestion() {
+    return this.props.quiz.questions.find(q => !q.result);
   }
 
   render() {
@@ -66,15 +66,15 @@ class Quiz extends React.Component {
       )
     }
 
-    const question = quiz.questions[questionNum];
+    const question =  this.chooseQuestion();
 
     return (
       <View>
         <Text>Quiz for {deck.id}</Text>
         <Text>{question.question}</Text>
         <Text>{question.answer}</Text>
-        <SubmitBtn text='Correct' onPress={this.handleCorrectPressed} />
-        <SubmitBtn text='Incorrect' onPress={this.handleIncorrectPressed} />
+        <SubmitBtn text='Correct' onPress={() => this.handleResultPressed(question.question, 'correct')} />
+        <SubmitBtn text='Incorrect' onPress={() => this.handleResultPressed(question.question, 'incorrect')} />
         <Text>{questionNum + 1} / {questionTotal}</Text>
       </View>
     )
