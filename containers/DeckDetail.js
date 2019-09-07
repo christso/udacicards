@@ -25,7 +25,7 @@ class DeckDetail extends React.Component {
 
   render() {
     const { navigation, deck } = this.props;
-    const { deckId } = deck;
+    const deckId = deck.id;
     const numOfCards = deck.questions.length;
 
     return (
@@ -43,7 +43,7 @@ function mapStateToProps(state, { navigation }) {
   const { deckId } = navigation.state.params;
 
   return {
-    deck: state[deckId]
+    deck: { id: deckId, ...state[deckId] }
   }
 }
 
