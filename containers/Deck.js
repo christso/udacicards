@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { gray } from '../utils/colors';
 
-export default function Deck({ title, navigation }) {
+export default function Deck({ id, title, navigation }) {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(
         'DeckDetail',
-        { deckId: title }
+        { deckId: id }
       )}
     >
       <View style={styles.deck}>

@@ -24,12 +24,14 @@ class DeckDetail extends React.Component {
   }
 
   render() {
-    const { navigation, deckId } = this.props;
+    const { navigation, deck } = this.props;
+    const { deckId } = deck;
+    const numOfCards = deck.questions.length;
 
     return (
       <View>
-        <Text>X Cards</Text>
-        <SubmitBtn text='Add Card' onPress={() => navigation.navigate('AddCard')} />
+        <Text>{numOfCards} card{numOfCards === 1 ? '' : 's'}</Text>
+        <SubmitBtn text='Add Card' onPress={() => navigation.navigate('AddCard', { deckId })} />
         <SubmitBtn text='Start Quiz' />
         <SubmitBtn text='Delete Deck' onPress={this.handleDeleteDeckPressed} />
       </View>
@@ -41,7 +43,7 @@ function mapStateToProps(state, { navigation }) {
   const { deckId } = navigation.state.params;
 
   return {
-    deckId
+    deck: state[deckId]
   }
 }
 

@@ -32,7 +32,12 @@ class DeckList extends React.Component {
     return (
       <View>
         {decks.map(deck => 
-          <Deck key={deck.id} title={deck.title} navigation={this.props.navigation}></Deck>)}
+          <Deck 
+            key={deck.id} 
+            id={deck.id}
+            title={deck.title} 
+            navigation={this.props.navigation}
+        />)}
       </View>
     );
   }
