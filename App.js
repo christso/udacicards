@@ -12,6 +12,7 @@ import AddDeck from './containers/AddDeck';
 import DeckDetail from './containers/DeckDetail';
 import AddCard from './containers/AddCard';
 import { white, purple } from './utils/colors';
+import Quiz from './containers/Quiz';
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -81,6 +82,10 @@ const MainNavigator = createStackNavigator({
   },
   DeckList: {
     screen: DeckList,
+    navigationOptions: stackNavigationOptions
+  },
+  Quiz: {
+    screen: Quiz,
     navigationOptions: stackNavigationOptions
   }
 })

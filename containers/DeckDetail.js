@@ -24,7 +24,14 @@ class DeckDetail extends React.Component {
   }
 
   handleStartQuizPressed = async () => {
-    
+    const { navigation, deck } = this.props;
+
+    navigation.navigate(
+      'Quiz',
+      {
+        deckId: deck.id
+      }
+    )
   }
 
   render() {
@@ -41,7 +48,7 @@ class DeckDetail extends React.Component {
       <View>
         <Text>{numOfCards} card{numOfCards === 1 ? '' : 's'}</Text>
         <SubmitBtn text='Add Card' onPress={() => navigation.navigate('AddCard', { deckId })} />
-        <SubmitBtn text='Start Quiz' />
+        <SubmitBtn text='Start Quiz' onPress={this.handleStartQuizPressed} />
         <SubmitBtn text='Delete Deck' onPress={this.handleDeleteDeckPressed} />
       </View>
     )
