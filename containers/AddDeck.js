@@ -15,8 +15,14 @@ class AddDeck extends React.Component {
   }
 
   submit = async () => {
-    await saveDeck(this.state, this.state.title); // TODO: simplfiy parameters
-    this.props.dispatch(addDeck(this.state));   
+    const deck = { ...this.state };
+    await saveDeck(deck, deck.title);
+    this.props.dispatch(addDeck(deck));
+    this.setState(() => ({ title: '', questions: [] }));
+    this.props.navigation.navigate(
+      'DeckDetail',
+      { deckId: deck.title }
+    );
   }
 
   handleChangeTitle = (text) => {
@@ -29,12 +35,18 @@ class AddDeck extends React.Component {
         <Text style={styles.screenTitle}>What is the title of your new Deck?</Text>
         <TextInputBox 
           placeholder='Deck Title'
-          onChangeText={this.handleChangeTitle} />
-
+          onChangeText={this.handleChangeTitle}
+          value={this.state.title} />
         <SubmitBtn onPress={this.submit} text='Submit' />
       </View>
     )
   }
 }
 
-export default connect()(AddDeck);
+function mapStateToProps(state, { navigation }) {
+  return {
+    navigation
+  }
+}
+
+export default connect(mapStateToProps)(AddDeck);

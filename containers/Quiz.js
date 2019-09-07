@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import SubmitBtn from '../components/SubmitBtn';
-import { setQuestionResult } from '../actions/quiz';
+import { setQuestionResult, startQuiz } from '../actions/quiz';
 
 const AnswerCard = ({ handleResultPressed, question }) => {
   return (
@@ -23,6 +23,18 @@ const QuestionCard = ({ question, onShowAnswer }) => {
   ) 
 }
 
+const QuizResult = ({ correctAnswers, questionTotal, onRestart, onExit }) => {
+  return (
+    <View>
+      <Text>Quiz results:</Text>
+      <Text>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
+      <Text>{correctAnswers} / {questionTotal}</Text>
+      <SubmitBtn text='Restart Quiz' onPress={onRestart}/>
+      <SubmitBtn text='Back to Deck' onPress={onExit} />
+    </View>
+  )
+}
+
 class Quiz extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params;
@@ -36,6 +48,14 @@ class Quiz extends React.Component {
     questionNum: 0,
     isFinished: false,
     showAnswer: false
+  }
+
+  reset = () => {
+    this.setState({
+      questionNum: 0,
+      isFinished: 0,
+      showAnswer: false
+    })
   }
 
   nextQuestion = () => {
@@ -60,6 +80,20 @@ class Quiz extends React.Component {
   handleResultPressed = (questionText, result) => {
     this.props.dispatch(setQuestionResult(questionText, result));
     this.nextQuestion();
+  }
+
+  handleRestart = () => {
+    const { dispatch, deck } = this.props;
+    dispatch(startQuiz(deck.id, deck.questions)); // extract common method with DeckDetail
+    this.reset();
+  }
+
+  handleExit = () => {
+    const { navigation, deck } = this.props;
+    navigation.navigate(
+      'DeckDetail',
+      { deckId: deck.id }
+    );
   }
 
   chooseQuestion() {
@@ -88,13 +122,12 @@ class Quiz extends React.Component {
 
     if (this.state.isFinished) {
       const correctAnswers = quiz.questions.filter(q => q.result === 'correct').length;
-
       return (
-        <View>
-          <Text>Quiz results:</Text>
-          <Text>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
-          <Text>{correctAnswers} / {questionTotal}</Text>
-        </View>
+        <QuizResult 
+          correctAnswers={correctAnswers} 
+          questionTotal={questionTotal}
+          onRestart={this.handleRestart}
+          onExit={this.handleExit} />
       )
     }
 
@@ -121,7 +154,8 @@ function mapStateToProps(state, { navigation }) {
   return {
     deck,
     quiz,
-    questionTotal
+    questionTotal,
+    navigation
   }
 }
 

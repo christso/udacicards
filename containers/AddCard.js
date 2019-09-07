@@ -39,6 +39,10 @@ class AddCard extends React.Component {
 
     await addCard(deckId, this.state);
     dispatch(addCardAction(deckId, this.state));
+    this.props.navigation.navigate(
+      'DeckDetail',
+      { deckId: deckId }
+    );
   }
 
   render() {
