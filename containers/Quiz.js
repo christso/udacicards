@@ -17,8 +17,8 @@ class Quiz extends React.Component {
   }
 
   render() {
-    const { quiz, deck } = this.props;
-    console.log('quiz = ', quiz);
+    const { quiz, deck, questionTotal } = this.props;
+    const questionNum = quiz.questionNum;
 
     if (!deck || !deck.id ) {
       return (
@@ -36,9 +36,13 @@ class Quiz extends React.Component {
       )
     }
 
+    const question = quiz.questions[questionNum];
+
     return (
       <View>
-        <Text>Quiz for {this.props.deck.id}</Text>
+        <Text>Quiz for {deck.id}</Text>
+        <Text>{question.question}</Text>
+        <Text>{question.answer}</Text>
       </View>
     )
   }
@@ -47,10 +51,13 @@ class Quiz extends React.Component {
 function mapStateToProps(state, { navigation }) {
   const { deckId } = navigation.state.params;
   const { decks, quiz } = state;
+  const deck = { id: deckId, ...decks[deckId] };
+  const questionTotal = deck.questions.length;
 
   return {
-    deck: { id: deckId, ...decks[deckId] },
-    quiz: quiz
+    deck,
+    quiz,
+    questionTotal
   }
 }
 

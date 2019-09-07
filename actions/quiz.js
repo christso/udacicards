@@ -1,4 +1,6 @@
 export const START_QUIZ = 'START_QUIZ';
+export const SET_QUESTION_RESULT = 'SET_QUESTION_RESULT';
+export const END_QUIZ = 'END_QUIZ';
 
 export function startQuiz(deckId, questions) {
   return {
@@ -8,16 +10,11 @@ export function startQuiz(deckId, questions) {
   };
 }
 
-/* Example data
-quiz: {
-  deckId,
-  questions: [{
-    question,
-    answer,
-    flipped: [true, false]
-    result: [correct, incorrect]
-  }]
+export function setQuestionResult(deckId, questionText, result) {
+  return {
+    type: SET_QUESTION_RESULT,
+    deckId,
+    questionText,
+    result
+  };
 }
-If result !== null, then it will remain in the quiz.
-If all results are not null (or last element in array), then quiz has ended.
-*/

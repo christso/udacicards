@@ -26,3 +26,17 @@ const decks = {
   }
 };
 ```
+
+Redux Store Structure
+```
+quiz: {
+  deckId,
+  questionNum,
+  questions: [{
+    question,
+    answer,
+    flipped: [true, false]
+    result: [correct, incorrect]
+  }]
+}
+```
