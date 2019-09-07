@@ -5,6 +5,7 @@ import SubmitBtn from '../components/SubmitBtn';
 import { removeDeck } from '../utils/api';
 import { removeDeck as removeDeckAction } from '../actions/decks';
 import { startQuiz } from '../actions/quiz';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 class DeckDetail extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -34,6 +35,9 @@ class DeckDetail extends React.Component {
         deckId: deck.id
       }
     )
+
+    clearLocalNotification()
+      .then(setLocalNotification);
   }
 
   render() {

@@ -20,7 +20,7 @@ class DeckList extends React.Component {
   }
 
   render() {
-    const { decks } = this.props;
+    const { decks, quizCompletions } = this.props;
     if (!decks || decks.length === 0) {
       return (
         <View>
@@ -38,18 +38,20 @@ class DeckList extends React.Component {
             title={deck.title} 
             navigation={this.props.navigation}
         />)}
+        <Text style={{ marginTop: 20 }}>{quizCompletions} quizes completed today.</Text>
       </View>
     );
   }
 }
 
-function mapStateToProps({ decks }) {
+function mapStateToProps({ decks, quiz }) {
   const deckArr = [];
   Object.keys(decks).forEach(id => {
     deckArr.push({ id, ...decks[id] });
   });
 
   return {
+    quizCompletions: quiz.completions,
     decks: deckArr
   };
 }

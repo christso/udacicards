@@ -1,6 +1,6 @@
 export const START_QUIZ = 'START_QUIZ';
 export const SET_QUESTION_RESULT = 'SET_QUESTION_RESULT';
-export const END_QUIZ = 'END_QUIZ';
+export const COMPLETE_QUIZ = 'COMPLETE_QUIZ';
 
 export function startQuiz(deckId, questions) {
   return {
@@ -16,4 +16,11 @@ export function setQuestionResult(questionText, result) {
     questionText,
     result
   };
+}
+
+export function completeQuiz(deckId) {
+  return {
+    type: COMPLETE_QUIZ,
+    deckId
+  }
 }

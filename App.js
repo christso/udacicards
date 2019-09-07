@@ -13,6 +13,7 @@ import DeckDetail from './containers/DeckDetail';
 import AddCard from './containers/AddCard';
 import { white, purple } from './utils/colors';
 import Quiz from './containers/Quiz';
+import { setLocalNotification } from './utils/helpers';
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -92,13 +93,19 @@ const MainNavigator = createStackNavigator({
 
 const AppContainer = createAppContainer(MainNavigator);
 
-export default function App() {
-  return (
-    <Provider store={store}>
-      <View style={{ flex: 1 }}>
-        <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-        <AppContainer />
-      </View>
-    </Provider>
-  );
+export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
+          <AppContainer />
+        </View>
+      </Provider>
+    );
+  }
 }

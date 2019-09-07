@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import SubmitBtn from '../components/SubmitBtn';
-import { setQuestionResult, startQuiz } from '../actions/quiz';
+import { setQuestionResult, startQuiz, completeQuiz } from '../actions/quiz';
 
 const AnswerCard = ({ handleResultPressed, question }) => {
   return (
@@ -59,7 +59,7 @@ class Quiz extends React.Component {
   }
 
   nextQuestion = () => {
-    const { questionTotal } = this.props;
+    const { dispatch, questionTotal, deck } = this.props;
  
     this.setState((state) => {
       if (state.questionNum + 1 < questionTotal) {
@@ -67,6 +67,8 @@ class Quiz extends React.Component {
           questionNum: state.questionNum + 1,
           showAnswer: false };
       }
+      
+      dispatch(completeQuiz(deck.id));
       return { ...state, isFinished: true };
     });
   }
