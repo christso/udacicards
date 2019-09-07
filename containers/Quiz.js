@@ -4,6 +4,25 @@ import { View, Text } from 'react-native';
 import SubmitBtn from '../components/SubmitBtn';
 import { setQuestionResult } from '../actions/quiz';
 
+const AnswerCard = ({ handleResultPressed, question }) => {
+  return (
+    <View>
+      <Text>{question.answer}</Text>
+      <SubmitBtn text='Correct' onPress={() => handleResultPressed(question.question, 'correct')} />
+      <SubmitBtn text='Incorrect' onPress={() => handleResultPressed(question.question, 'incorrect')} />
+    </View>
+  )
+}
+
+const QuestionCard = ({ question, onShowAnswer }) => {
+  return (
+    <View>
+      <Text>{question.question}</Text>
+      <SubmitBtn text='Show Answer' onPress={onShowAnswer} />
+    </View>
+  ) 
+}
+
 class Quiz extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params;
@@ -15,7 +34,8 @@ class Quiz extends React.Component {
 
   state = {
     questionNum: 0,
-    isFinished: false
+    isFinished: false,
+    showAnswer: false
   }
 
   nextQuestion = () => {
@@ -23,10 +43,18 @@ class Quiz extends React.Component {
  
     this.setState((state) => {
       if (state.questionNum + 1 < questionTotal) {
-        return { questionNum: state.questionNum + 1 };
+        return {
+          questionNum: state.questionNum + 1,
+          showAnswer: false };
       }
       return { ...state, isFinished: true };
     });
+  }
+
+  showAnswer = () => {
+    this.setState(() => ({
+      showAnswer: true
+    }));
   }
 
   handleResultPressed = (questionText, result) => {
@@ -74,11 +102,10 @@ class Quiz extends React.Component {
 
     return (
       <View>
-        <Text>Quiz for {deck.id}</Text>
-        <Text>{question.question}</Text>
-        <Text>{question.answer}</Text>
-        <SubmitBtn text='Correct' onPress={() => this.handleResultPressed(question.question, 'correct')} />
-        <SubmitBtn text='Incorrect' onPress={() => this.handleResultPressed(question.question, 'incorrect')} />
+        {this.state.showAnswer
+          ? <AnswerCard handleResultPressed={this.handleResultPressed} question={question} />
+          : <QuestionCard question={question} onShowAnswer={this.showAnswer} />
+        }
         <Text>{questionNum + 1} / {questionTotal}</Text>
       </View>
     )
