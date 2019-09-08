@@ -42,9 +42,10 @@ const QuestionCard = ({ question, onShowAnswer }) => {
 const QuizResult = ({ correctAnswers, questionTotal, onRestart, onExit }) => {
   return (
     <View>
-      <Text>Quiz results:</Text>
-      <Text>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
-      <Text>{correctAnswers} / {questionTotal}</Text>
+      <Text style={{ fontSize: 20, textAlign: 'center' }}>Your result:</Text>
+      <Text style={{ fontSize: 25, textAlign: 'center', margin: 20 }}>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
+      <Text style={{ textAlign: 'center' }}>You answered {correctAnswers} out of {questionTotal} questions correctly.</Text>
+      <View style={{ margin: 10 }} />
       <SubmitBtn text='Restart Quiz' onPress={onRestart} />
       <SubmitBtn text='Back to Deck' onPress={onExit} />
     </View>

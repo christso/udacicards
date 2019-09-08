@@ -40,7 +40,7 @@ class DeckList extends React.Component {
             navigation={this.props.navigation}
             cardCount={deck.questions.length}
         />)}
-        <Text style={{ marginTop: 20 }}>{quizCompletions} quizes completed today.</Text>
+        <Text style={{ marginTop: 20, textAlign: 'center' }}>{quizCompletions} quizes completed today.</Text>
       </View>
     );
   }
