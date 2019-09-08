@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
+import View from '../components/View';
 import { RECEIVE_DECKS, receiveDecks } from '../actions/decks';
 import { getDecks } from '../utils/api';
 import Deck from './Deck';
@@ -37,6 +38,7 @@ class DeckList extends React.Component {
             id={deck.id}
             title={deck.title} 
             navigation={this.props.navigation}
+            cardCount={deck.questions.length}
         />)}
         <Text style={{ marginTop: 20 }}>{quizCompletions} quizes completed today.</Text>
       </View>

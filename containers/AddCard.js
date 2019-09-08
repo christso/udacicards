@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
+import View from '../components/View';
 import SubmitBtn from '../components/SubmitBtn';
 import TextInputBox from '../components/TextInputBox';
 import { addCard } from '../utils/api';

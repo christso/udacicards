@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { gray } from '../utils/colors';
 
-export default function Deck({ id, title, navigation }) {
+export default function Deck({ id, title, cardCount, navigation }) {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(
@@ -12,6 +12,7 @@ export default function Deck({ id, title, navigation }) {
     >
       <View style={styles.deck}>
         <Text style={styles.deckHeading}>{title}</Text>
+        <Text style={styles.cardStat}>{cardCount} cards</Text>
       </View>
     </TouchableOpacity>
   )
@@ -19,7 +20,7 @@ export default function Deck({ id, title, navigation }) {
 
 const styles = StyleSheet.create({
   deck: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginTop: 12,
     borderColor: gray,
     borderBottomWidth: 1
@@ -27,5 +28,8 @@ const styles = StyleSheet.create({
   deckHeading: {
     fontSize: 20,
     fontWeight: 'bold'
+  },
+  cardStat: {
+    marginTop: 6
   }
 })

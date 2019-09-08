@@ -31,7 +31,7 @@ class AddDeck extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, padding: 10 }}>
         <Text style={styles.screenTitle}>What is the title of your new Deck?</Text>
         <TextInputBox 
           placeholder='Deck Title'
