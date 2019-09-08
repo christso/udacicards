@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+import View from '../components/View';
 import CenteredText from '../components/CenteredText';
 import SubmitBtn from '../components/SubmitBtn';
+import HorizontalRule from '../components/HorizontalRule';
 import { setQuestionResult, startQuiz, completeQuiz } from '../actions/quiz';
 
 const AnswerCard = ({ handleResultPressed, question }) => {
   return (
     <View>
-      <Text>{question.answer}</Text>
+      <Text style={{ marginTop: 20, marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.question}</Text>
+      <HorizontalRule />
+      <Text style={{ marginTop: 10, marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.answer}</Text>
       <SubmitBtn text='Correct' onPress={() => handleResultPressed(question.question, 'correct')} />
       <SubmitBtn text='Incorrect' onPress={() => handleResultPressed(question.question, 'incorrect')} />
     </View>
@@ -18,8 +22,12 @@ const AnswerCard = ({ handleResultPressed, question }) => {
 const QuestionCard = ({ question, onShowAnswer }) => {
   return (
     <View>
-      <Text>{question.question}</Text>
-      <SubmitBtn text='Show Answer' onPress={onShowAnswer} />
+      <View style={{ marginTop: 20 }}>
+        <Text style={{ textAlign: 'center', fontSize: 20 }}>{question.question}</Text>
+      </View>
+      <View style={{ marginTop: 10 }}>
+        <SubmitBtn text='Show Answer' onPress={onShowAnswer} />
+      </View>
     </View>
   )
 }
@@ -133,13 +141,15 @@ class Quiz extends React.Component {
 
     const question = this.chooseQuestion();
 
+    const questionsRemaining = questionTotal - questionNum;
+
     return (
       <View>
         {this.state.showAnswer
           ? <AnswerCard handleResultPressed={this.handleResultPressed} question={question} />
           : <QuestionCard question={question} onShowAnswer={this.showAnswer} />
         }
-        <Text>{questionNum + 1} / {questionTotal}</Text>
+        <Text style={{ textAlign: 'center', marginTop: 10 }}>{questionsRemaining} of {questionTotal} questions remaining</Text>
       </View>
     )
   }

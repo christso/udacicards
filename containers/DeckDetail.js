@@ -52,7 +52,7 @@ class DeckDetail extends React.Component {
 
     return (
       <View>
-        <Text>{numOfCards} card{numOfCards === 1 ? '' : 's'}</Text>
+        <Text style={{ textAlign: 'center', marginTop: 10 }}>{numOfCards} card{numOfCards === 1 ? '' : 's'}</Text>
         <SubmitBtn text='Add Card' onPress={() => navigation.navigate('AddCard', { deckId })} />
         <SubmitBtn text='Start Quiz' onPress={this.handleStartQuizPressed} />
         <SubmitBtn text='Delete Deck' onPress={this.handleDeleteDeckPressed} />
