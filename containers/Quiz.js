@@ -1,20 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import View from '../components/View';
 import CenteredText from '../components/CenteredText';
 import SubmitBtn from '../components/SubmitBtn';
 import HorizontalRule from '../components/HorizontalRule';
 import { setQuestionResult, startQuiz, completeQuiz } from '../actions/quiz';
+import { red, green } from '../utils/colors';
 
 const AnswerCard = ({ handleResultPressed, question }) => {
   return (
     <View>
-      <Text style={{ marginTop: 20, marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.question}</Text>
-      <HorizontalRule />
-      <Text style={{ marginTop: 10, marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.answer}</Text>
-      <SubmitBtn text='Correct' onPress={() => handleResultPressed(question.question, 'correct')} />
-      <SubmitBtn text='Incorrect' onPress={() => handleResultPressed(question.question, 'incorrect')} />
+      <View>
+        <Text style={{ marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.question}</Text>
+        <HorizontalRule />
+        <Text style={{ marginTop: 10, marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.answer}</Text>
+      </View>
+      <View style={{ marginTop: 20, flex: 1, flexDirection: 'row'  }}>
+        <SubmitBtn text='Correct' onPress={() => handleResultPressed(question.question, 'correct')}
+          style={{ backgroundColor: green, marginLeft: 10, marginRight: 10 }} />
+        <SubmitBtn text='Incorrect' onPress={() => handleResultPressed(question.question, 'incorrect')} 
+          style={{ backgroundColor: red, marginLeft: 10, marginRight: 10 }} />
+      </View>
     </View>
   )
 }
@@ -22,7 +29,7 @@ const AnswerCard = ({ handleResultPressed, question }) => {
 const QuestionCard = ({ question, onShowAnswer }) => {
   return (
     <View>
-      <View style={{ marginTop: 20 }}>
+      <View>
         <Text style={{ textAlign: 'center', fontSize: 20 }}>{question.question}</Text>
       </View>
       <View style={{ marginTop: 10 }}>
@@ -145,11 +152,13 @@ class Quiz extends React.Component {
 
     return (
       <View>
+        <Text style={{ textAlign: 'center', marginTop: 10 }}>
+          {questionsRemaining} of {questionTotal} questions remaining
+        </Text>
         {this.state.showAnswer
-          ? <AnswerCard handleResultPressed={this.handleResultPressed} question={question} />
-          : <QuestionCard question={question} onShowAnswer={this.showAnswer} />
+            ? <AnswerCard handleResultPressed={this.handleResultPressed} question={question} />
+            : <QuestionCard question={question} onShowAnswer={this.showAnswer} />
         }
-        <Text style={{ textAlign: 'center', marginTop: 10 }}>{questionsRemaining} of {questionTotal} questions remaining</Text>
       </View>
     )
   }
