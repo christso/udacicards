@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
+import CenteredText from '../components/CenteredText';
 import SubmitBtn from '../components/SubmitBtn';
 import { setQuestionResult, startQuiz, completeQuiz } from '../actions/quiz';
 
@@ -20,7 +21,7 @@ const QuestionCard = ({ question, onShowAnswer }) => {
       <Text>{question.question}</Text>
       <SubmitBtn text='Show Answer' onPress={onShowAnswer} />
     </View>
-  ) 
+  )
 }
 
 const QuizResult = ({ correctAnswers, questionTotal, onRestart, onExit }) => {
@@ -29,7 +30,7 @@ const QuizResult = ({ correctAnswers, questionTotal, onRestart, onExit }) => {
       <Text>Quiz results:</Text>
       <Text>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
       <Text>{correctAnswers} / {questionTotal}</Text>
-      <SubmitBtn text='Restart Quiz' onPress={onRestart}/>
+      <SubmitBtn text='Restart Quiz' onPress={onRestart} />
       <SubmitBtn text='Back to Deck' onPress={onExit} />
     </View>
   )
@@ -60,14 +61,15 @@ class Quiz extends React.Component {
 
   nextQuestion = () => {
     const { dispatch, questionTotal, deck } = this.props;
- 
+
     this.setState((state) => {
       if (state.questionNum + 1 < questionTotal) {
         return {
           questionNum: state.questionNum + 1,
-          showAnswer: false };
+          showAnswer: false
+        };
       }
-      
+
       dispatch(completeQuiz(deck.id));
       return { ...state, isFinished: true };
     });
@@ -106,34 +108,30 @@ class Quiz extends React.Component {
     const { quiz, deck, questionTotal } = this.props;
     const questionNum = this.state.questionNum;
 
-    if (!deck || !deck.id ) {
+    if (!deck || !deck.id) {
       return (
-        <View>
-          <Text>No deck to quiz!</Text>
-        </View>
+        <CenteredText>No deck to quiz!</CenteredText>
       )
     }
 
     if (!quiz || !quiz.questions || quiz.questions.length === 0) {
       return (
-        <View>
-          <Text>No questions to quiz!</Text>
-        </View>
+        <CenteredText>Sorry, you cannot take a quiz because there are no cards in the deck.</CenteredText>
       )
     }
 
     if (this.state.isFinished) {
       const correctAnswers = quiz.questions.filter(q => q.result === 'correct').length;
       return (
-        <QuizResult 
-          correctAnswers={correctAnswers} 
+        <QuizResult
+          correctAnswers={correctAnswers}
           questionTotal={questionTotal}
           onRestart={this.handleRestart}
           onExit={this.handleExit} />
       )
     }
 
-    const question =  this.chooseQuestion();
+    const question = this.chooseQuestion();
 
     return (
       <View>
