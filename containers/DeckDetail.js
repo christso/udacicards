@@ -6,6 +6,7 @@ import { removeDeck } from '../utils/api';
 import { removeDeck as removeDeckAction } from '../actions/decks';
 import { startQuiz } from '../actions/quiz';
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
+import { red } from '../utils/colors';
 
 class DeckDetail extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -55,7 +56,7 @@ class DeckDetail extends React.Component {
         <Text style={{ textAlign: 'center', marginTop: 10 }}>{numOfCards} card{numOfCards === 1 ? '' : 's'}</Text>
         <SubmitBtn text='Add Card' onPress={() => navigation.navigate('AddCard', { deckId })} />
         <SubmitBtn text='Start Quiz' onPress={this.handleStartQuizPressed} />
-        <SubmitBtn text='Delete Deck' onPress={this.handleDeleteDeckPressed} />
+        <Text style={styles.deleteBtn} onPress={this.handleDeleteDeckPressed}>Delete Deck</Text>
       </View>
     )
   }
@@ -69,5 +70,14 @@ function mapStateToProps(state, { navigation }) {
     deck: { id: deckId, ...decks[deckId] }
   }
 }
+
+const styles = StyleSheet.create({
+  deleteBtn: {
+    color: red,
+    fontSize: 22,
+    textAlign: 'center',
+    marginTop: 30
+  }
+});
 
 export default connect(mapStateToProps)(DeckDetail);
