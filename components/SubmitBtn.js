@@ -7,7 +7,7 @@ export default function SubmitBtn({ onPress, text, style }) {
     <TouchableOpacity
       style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn, style]}
       onPress={onPress}>
-        <Text style={styles.submitBtnText}>{text}</Text>
+        <Text style={[Platform.OS === 'ios' ? styles.iosSubmitBtnText : styles.androidSubmitBtnText, style]}>{text}</Text>
     </TouchableOpacity>
   )
 }
@@ -34,9 +34,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10
   },
-  submitBtnText: {
+  iosSubmitBtnText: {
+    color: white,
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  androidSubmitBtnText: {
     color: white,
     fontSize: 22,
     textAlign: 'center'
-  }  
+  }
 })
