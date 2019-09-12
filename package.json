@@ -9,6 +9,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-navigation/core": "^3.5.0",
+    "@react-navigation/native": "^3.6.2",
     "expo": "^34.0.1",
     "expo-permissions": "~6.0.0",
     "react": "16.8.3",

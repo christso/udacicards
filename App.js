@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import Constants from 'expo-constants';
