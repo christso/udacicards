@@ -2,7 +2,7 @@
 
 This is a mobile application for Android and iOS that allows users to study collections of flashcards. This app allows users to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks.
 
-This app has been tested with Android and iOS.
+This app has been tested with Android and iOS. However, for iOS does not allow notifications to repeat daily, so if you forget to complete to the quiz, you will only be reminded once.
 
 ## Instructions
 

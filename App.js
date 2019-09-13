@@ -16,6 +16,8 @@ import Settings from './containers/Settings';
 import { white, purple } from './utils/colors';
 import Quiz from './containers/Quiz';
 import { setLocalNotification } from './utils/helpers';
+import { getQuizReminder, saveQuizReminder } from './utils/api';
+import { setQuizReminder } from './actions/quizReminder';
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -115,8 +117,17 @@ const MainNavigator = createStackNavigator({
 const AppContainer = createAppContainer(MainNavigator);
 
 class ReduxApp extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
+    const quizReminder = await getQuizReminder();
+
     const { hour, minute } = this.props.quizReminder;
+
+    if (quizReminder) {
+      this.props.dispatch(setQuizReminder(quizReminder.hour, quizReminder.minute)); // get from storage
+    } else {
+      await saveQuizReminder(hour, minute); // save default to storage
+    }
+
     setLocalNotification(hour, minute);
   }
 
@@ -130,6 +141,12 @@ class ReduxApp extends React.Component {
   }
 }
 
+function mapStateToProps({ quizReminder }) {
+  return {
+    quizReminder
+  };
+}
+
 const ConnectedReduxApp = connect(mapStateToProps)(ReduxApp);
 
 export default class App extends React.Component {
@@ -140,10 +157,4 @@ export default class App extends React.Component {
       </Provider>
     )
   }
-}
-
-function mapStateToProps({ quizReminder }) {
-  return {
-    quizReminder
-  };
 }

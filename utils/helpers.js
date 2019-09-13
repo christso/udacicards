@@ -36,19 +36,17 @@ export function setLocalNotification(hour = 20, minute = 0) {
             Notifications.cancelAllScheduledNotificationsAsync()
 
             let tomorrow = new Date()
-            const dateOffset = 0; // TODO: allow this to be changed
+            const dateOffset = 1; // TODO: allow this to be changed
 
             tomorrow.setDate(tomorrow.getDate() + dateOffset)
             tomorrow.setHours(hour)
             tomorrow.setMinutes(minute)
             
-            console.log('Tomorrow', tomorrow);
-            // TODO: repeats do not work on IOS 10+
             Notifications.scheduleLocalNotificationAsync(
               createNotification(),
               {
                 time: tomorrow,
-                // repeat: 'day',
+                repeat: 'day', // TODO: repeats do not work on IOS 10+
               }
             )
 

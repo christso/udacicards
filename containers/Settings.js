@@ -7,13 +7,15 @@ import SectionHeading from '../components/SectionHeading';
 import { setQuizReminder } from '../actions/quizReminder';
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import SubmitBtn from '../components/SubmitBtn';
+import { saveQuizReminder } from '../utils/api';
 
 class Settings extends React.Component {
   state = {
     showDatePickerIOS: false
   }
 
-  setReminder = (hour, minute) => {
+  setReminder = async (hour, minute) => {
+    await saveQuizReminder(hour, minute); // TODO: call this only if pressed
     this.props.dispatch(setQuizReminder(hour, minute));
     clearLocalNotification()
       .then(setLocalNotification(hour, minute));

@@ -1,6 +1,19 @@
 import { AsyncStorage } from 'react-native';
 
 const DECKS_STORAGE_KEY = 'UdaciCards:decks';
+const QUIZ_REMINDER_STORAGE_KEY = 'UdaciCards:quiz-reminder';
+
+export function getQuizReminder() {
+  return AsyncStorage.getItem(QUIZ_REMINDER_STORAGE_KEY)
+    .then(results => JSON.parse(results));
+}
+
+export function saveQuizReminder(hour, minute) {
+  return AsyncStorage.setItem(QUIZ_REMINDER_STORAGE_KEY, JSON.stringify({
+    hour,
+    minute
+  }));
+}
 
 export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)

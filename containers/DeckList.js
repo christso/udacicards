@@ -7,17 +7,11 @@ import { getDecks } from '../utils/api';
 import Deck from './Deck';
 
 class DeckList extends React.Component {
-  state = {
-    isLoading: true
-  }
-
   async componentDidMount() {
     const { dispatch } = this.props;
 
-    this.isLoading = true;
     const decks = await getDecks();
     dispatch(receiveDecks(decks));
-    this.setState(() => isLoading = false);
   }
 
   render() {
