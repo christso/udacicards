@@ -27,7 +27,7 @@ class DeckDetail extends React.Component {
   }
 
   handleStartQuizPressed = async () => {
-    const { navigation, deck, dispatch } = this.props;
+    const { navigation, deck, dispatch, quizReminder } = this.props;
     dispatch(startQuiz(deck.id, deck.questions)); // TODO: select a subset of questions
 
     navigation.navigate(
@@ -38,7 +38,7 @@ class DeckDetail extends React.Component {
     )
 
     clearLocalNotification()
-      .then(setLocalNotification);
+      .then(setLocalNotification(quizReminder.hour, quizReminder.minute));
   }
 
   render() {
@@ -63,11 +63,12 @@ class DeckDetail extends React.Component {
 }
 
 function mapStateToProps(state, { navigation }) {
-  const { decks } = state;
+  const { decks, quizReminder } = state;
   const { deckId } = navigation.state.params;
 
   return {
-    deck: { id: deckId, ...decks[deckId] }
+    deck: { id: deckId, ...decks[deckId] },
+    quizReminder
   }
 }
 

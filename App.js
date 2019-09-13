@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createAppContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
+import { connect } from 'react-redux';
 import Constants from 'expo-constants';
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import store from './store';
@@ -11,6 +12,7 @@ import DeckList from './containers/DeckList';
 import AddDeck from './containers/AddDeck';
 import DeckDetail from './containers/DeckDetail';
 import AddCard from './containers/AddCard';
+import Settings from './containers/Settings';
 import { white, purple } from './utils/colors';
 import Quiz from './containers/Quiz';
 import { setLocalNotification } from './utils/helpers';
@@ -44,6 +46,24 @@ const TabNavigator = createBottomTabNavigator({
       tabBarLabel: 'Add Deck',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     }
+  },
+  Settings: {
+    screen: createStackNavigator({
+      Settings: {
+        screen: Settings,
+        navigationOptions: {
+          headerTintColor: white, 
+          headerStyle: {
+            backgroundColor: purple,
+          },
+          headerTitle: 'Settings'
+        }
+      }
+    }),
+    navigationOptions: {
+      tabBarLabel: 'Settings',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-settings' size={30} color={tintColor} />
+    }
   }
 },
 {
@@ -69,9 +89,10 @@ const TabNavigator = createBottomTabNavigator({
 const MainNavigator = createStackNavigator({
   Home: {
     screen: TabNavigator,
-    navigationOptions: {
-      header: null
-    }
+    navigationOptions: stackNavigationOptions   
+    // navigationOptions: {
+    //   header: null
+    // }
   },
   DeckDetail: {
     screen: DeckDetail,
@@ -93,19 +114,36 @@ const MainNavigator = createStackNavigator({
 
 const AppContainer = createAppContainer(MainNavigator);
 
-export default class App extends React.Component {
+class ReduxApp extends React.Component {
   componentDidMount() {
-    setLocalNotification();
+    const { hour, minute } = this.props.quizReminder;
+    setLocalNotification(hour, minute);
   }
 
   render() {
     return (
-      <Provider store={store}>
         <View style={{ flex: 1 }}>
           <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
           <AppContainer />
         </View>
-      </Provider>
     );
   }
+}
+
+const ConnectedReduxApp = connect(mapStateToProps)(ReduxApp);
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <ConnectedReduxApp />
+      </Provider>
+    )
+  }
+}
+
+function mapStateToProps({ quizReminder }) {
+  return {
+    quizReminder
+  };
 }

@@ -9,6 +9,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "2.0.0",
     "@react-navigation/core": "^3.5.0",
     "@react-navigation/native": "^3.6.2",
     "expo": "^34.0.1",
