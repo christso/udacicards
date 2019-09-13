@@ -25,7 +25,7 @@ function createNotification() {
   }
 }
 
-export function setLocalNotification() {
+export function setLocalNotification(hour = 20, minute = 0) {
   AsyncStorage.getItem(NOTIFICATION_KEY)
   .then(JSON.parse)
   .then((data) => {
@@ -36,15 +36,19 @@ export function setLocalNotification() {
             Notifications.cancelAllScheduledNotificationsAsync()
 
             let tomorrow = new Date()
-            tomorrow.setDate(tomorrow.getDate() + 1)
-            tomorrow.setHours(20)
-            tomorrow.setMinutes(0)
+            const dateOffset = 0; // TODO: allow this to be changed
 
+            tomorrow.setDate(tomorrow.getDate() + dateOffset)
+            tomorrow.setHours(hour)
+            tomorrow.setMinutes(minute)
+            
+            console.log('Tomorrow', tomorrow);
+            // TODO: repeats do not work on IOS 10+
             Notifications.scheduleLocalNotificationAsync(
               createNotification(),
               {
                 time: tomorrow,
-                repeat: 'day',
+                // repeat: 'day',
               }
             )
 
