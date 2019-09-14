@@ -12,7 +12,7 @@ export default function Deck({ id, title, cardCount, navigation }) {
     >
       <View style={styles.deck}>
         <Text style={styles.deckHeading}>{title}</Text>
-        <Text style={styles.cardStat}>{cardCount} cards</Text>
+        <Text style={styles.cardStat}>{cardCount} {cardCount == 1 ? 'card' : 'cards'}</Text>
       </View>
     </TouchableOpacity>
   )
