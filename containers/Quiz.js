@@ -6,6 +6,8 @@ import CenteredText from '../components/CenteredText';
 import SubmitBtn from '../components/SubmitBtn';
 import HorizontalRule from '../components/HorizontalRule';
 import { setQuestionResult, startQuiz, completeQuiz } from '../actions/quiz';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
+
 import { red, green } from '../utils/colors';
 
 const AnswerCard = ({ handleResultPressed, question }) => {
@@ -76,7 +78,7 @@ class Quiz extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, questionTotal, deck } = this.props;
+    const { dispatch, questionTotal, deck, quizReminder } = this.props;
 
     this.setState((state) => {
       if (state.questionNum + 1 < questionTotal) {
@@ -85,7 +87,10 @@ class Quiz extends React.Component {
           showAnswer: false
         };
       }
-
+      
+      // when quiz is completed:
+      clearLocalNotification()
+        .then(setLocalNotification(quizReminder.hour, quizReminder.minute));
       dispatch(completeQuiz(deck.id));
       return { ...state, isFinished: true };
     });
@@ -104,7 +109,7 @@ class Quiz extends React.Component {
 
   handleRestart = () => {
     const { dispatch, deck } = this.props;
-    dispatch(startQuiz(deck.id, deck.questions)); // extract common method with DeckDetail
+    dispatch(startQuiz(deck.id, deck.questions));
     this.reset();
   }
 
@@ -166,6 +171,7 @@ class Quiz extends React.Component {
 }
 
 function mapStateToProps(state, { navigation }) {
+  const { quizReminder } = state;
   const { deckId } = navigation.state.params;
   const { decks, quiz } = state;
   const deck = { id: deckId, ...decks[deckId] };
@@ -175,6 +181,7 @@ function mapStateToProps(state, { navigation }) {
     deck,
     quiz,
     questionTotal,
+    quizReminder,
     navigation
   }
 }

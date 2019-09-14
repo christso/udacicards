@@ -5,7 +5,6 @@ import SubmitBtn from '../components/SubmitBtn';
 import { removeDeck } from '../utils/api';
 import { removeDeck as removeDeckAction } from '../actions/decks';
 import { startQuiz } from '../actions/quiz';
-import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import { red } from '../utils/colors';
 
 class DeckDetail extends React.Component {
@@ -36,9 +35,6 @@ class DeckDetail extends React.Component {
         deckId: deck.id
       }
     )
-
-    clearLocalNotification()
-      .then(setLocalNotification(quizReminder.hour, quizReminder.minute));
   }
 
   render() {
