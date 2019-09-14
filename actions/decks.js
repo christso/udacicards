@@ -4,45 +4,28 @@ export const REMOVE_DECK = 'REMOVE_DECK';
 export const ADD_CARD = 'ADD_CARD';
 export const REMOVE_CARD = 'REMOVE_CARD';
 
-export function receiveDecks(decks) {
-  return {
-    type: RECEIVE_DECKS,
-    decks
-  }
-}
+export const receiveDecks = (decks) => ({
+  type: RECEIVE_DECKS,
+  decks
+});
 
-export function addDeck(deck) {
-  return {
-    type: ADD_DECK,
-    deck
-  }
-}
+export const addDeck = (deck) => ({
+  type: ADD_DECK,
+  deck
+});
 
-export function removeDeck(id) {
-  return {
-    type: REMOVE_DECK,
-    id
-  }
-}
+export const removeDeck = (id) => ({
+  type: REMOVE_DECK,
+  id
+});
 
-/*
-deckId = 'React',
-card = {
-  question: 'What is React?',
-  answer: 'A library for managing user interfaces'
-}
-*/
-export function addCard(deckId, card) {
-  return {
-    type: ADD_CARD,
-    deckId,
-    card
-  }
-}
+export const addCard = (deckId, card) => ({
+  type: ADD_CARD,
+  deckId,
+  card
+});
 
-export function removeCard(name) {
-  return {
-    type: REMOVE_CARD,
-    name
-  }
-}
+export const removeCard = (name) => ({
+  type: REMOVE_CARD,
+  name
+});
