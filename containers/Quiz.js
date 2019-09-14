@@ -10,19 +10,79 @@ import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 import { red, green } from '../utils/colors';
 
+const answerStyles = StyleSheet.create({
+  questionText: {
+    marginBottom: 10,
+    textAlign: 'center',
+    fontSize: 20
+  },
+  answerText: { 
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: 'center',
+    fontSize: 20
+  },
+  container: {
+    marginTop: 20,
+    flex: 1,
+    flexDirection: 'row'
+  },
+  correctButton: {
+    backgroundColor: green,
+    marginLeft: 5,
+    marginRight: 5
+  },
+  incorrectButton: {
+    backgroundColor: red,
+    marginLeft: 5,
+    marginRight: 5
+  }
+});
+
+const questionStyles = StyleSheet.create({
+  questionText: {
+    textAlign: 'center',
+    fontSize: 20
+  }  
+})
+
+const resultStyles = StyleSheet.create({
+  headingText: {
+    fontSize: 20, 
+    textAlign: 'center'
+  },
+  scoreText: {
+    fontSize: 25, 
+    textAlign: 'center', 
+    margin: 20
+  },
+  centerText: {
+    textAlign: 'center'
+  },
+  divider: {
+    margin: 10
+  }
+})
+
+const styles = {
+  answerStyles,
+  questionStyles,
+  resultStyles
+};
+
 const AnswerCard = ({ handleResultPressed, question }) => {
   return (
     <View>
       <View>
-        <Text style={{ marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.question}</Text>
+        <Text style={answerStyles.questionText}>{question.question}</Text>
         <HorizontalRule />
-        <Text style={{ marginTop: 10, marginBottom: 10, textAlign: 'center', fontSize: 20 }}>{question.answer}</Text>
+        <Text style={answerStyles.answerText}>{question.answer}</Text>
       </View>
-      <View style={{ marginTop: 20, flex: 1, flexDirection: 'row'  }}>
+      <View style={answerStyles.container}>
         <SubmitBtn text='Correct' onPress={() => handleResultPressed(question.question, 'correct')}
-          style={{ backgroundColor: green, marginLeft: 10, marginRight: 10 }} />
+          style={answerStyles.correctButton} />
         <SubmitBtn text='Incorrect' onPress={() => handleResultPressed(question.question, 'incorrect')} 
-          style={{ backgroundColor: red, marginLeft: 10, marginRight: 10 }} />
+          style={answerStyles.incorrectButton} />
       </View>
     </View>
   )
@@ -32,7 +92,7 @@ const QuestionCard = ({ question, onShowAnswer }) => {
   return (
     <View>
       <View>
-        <Text style={{ textAlign: 'center', fontSize: 20 }}>{question.question}</Text>
+        <Text style={questionStyles.questionText}>{question.question}</Text>
       </View>
       <View style={{ marginTop: 10 }}>
         <SubmitBtn text='Show Answer' onPress={onShowAnswer} />
@@ -44,10 +104,10 @@ const QuestionCard = ({ question, onShowAnswer }) => {
 const QuizResult = ({ correctAnswers, questionTotal, onRestart, onExit }) => {
   return (
     <View>
-      <Text style={{ fontSize: 20, textAlign: 'center' }}>Your result:</Text>
-      <Text style={{ fontSize: 25, textAlign: 'center', margin: 20 }}>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
-      <Text style={{ textAlign: 'center' }}>You answered {correctAnswers} out of {questionTotal} questions correctly.</Text>
-      <View style={{ margin: 10 }} />
+      <Text style={styles.resultStyles.headingText}>Your result:</Text>
+      <Text style={styles.resultStyles.scoreText}>{Math.round(correctAnswers / questionTotal * 100)}%</Text>
+      <Text style={styles.resultStyles.centerText}>You answered {correctAnswers} out of {questionTotal} questions correctly.</Text>
+      <View style={styles.resultStyles.divider} />
       <SubmitBtn text='Restart Quiz' onPress={onRestart} />
       <SubmitBtn text='Back to Deck' onPress={onExit} />
     </View>
