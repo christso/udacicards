@@ -36,7 +36,6 @@ class Settings extends React.Component {
   }
 
   hideDatePickerIOS = () => {
-    console.log('hideDatePicker');
     this.setState((state) => ({ showDatePickerIOS: false }));
   }
 

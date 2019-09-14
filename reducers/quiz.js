@@ -33,7 +33,6 @@ function quiz(state = defaultState, action) {
       if (lastCompletionDate 
         && formatDate(lastCompletionDate) < formatDate(new Date())) {
           completions = 0;
-          console.log('completions reset');
       }
 
       return {

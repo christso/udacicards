@@ -40,7 +40,6 @@ export function addCard(deckId, card) {
     .then(results => {
       const decks = JSON.parse(results);
       decks[deckId].questions = decks[deckId].questions.concat([card]);
-      console.log('db.decks---> ', JSON.stringify(decks));
       AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
     });
 }
