@@ -25,10 +25,9 @@ You can add a new deck and input the title for the deck. After adding the deck, 
 
 You can add a new card after you navigate to the individual deck. The new card screen allows you to input a question and the associated answer.
 
-<video width="304" height="540" controls="controls">
-  <source type="video/mp4" src="demo/add-card.mp4"></source>
-  <p>Your browser does not support the video tag.</p>
-</video>
+<p>
+  <img width="304" height="540" src="demo/add-card.gif">
+</p>
 
 ### View Decks
 
