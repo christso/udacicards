@@ -13,13 +13,24 @@ To run the project:
 
 ## Features
 
-### View Decks
-
 ### Add Deck
 
-![Add Deck](demo/add-deck.gif "Add Deck")
+You can add a new deck and input the title for the deck. After adding the deck, you will see the individual deck view which allows you to add cards to the deck.
+
+<p>
+  <img width="304" height="540" src="demo/add-deck.gif">
+</p>
 
 ### Add Card
+
+You can add a new card after you navigate to the individual deck. The new card screen allows you to input a question and the associated answer.
+
+<video width="304" height="540" controls="controls">
+  <source src="demo/add-card.mp4"></source>
+  <p>Your browser does not support the video tag.</p>
+</video>
+
+### View Decks
 
 
 ### Start Quiz
