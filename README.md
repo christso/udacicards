@@ -11,6 +11,22 @@ To run the project:
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
+## Features
+
+### View Decks
+
+### Add Deck
+
+![Add Deck](demo/add-deck.gif "Add Deck")
+
+### Add Card
+
+
+### Start Quiz
+
+
+### Notifications
+
 ## Project Structure
 ```bash
 ├── README.md # This file.
